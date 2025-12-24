@@ -2,10 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Main",
+            "name": "Python: Main (Original)",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "cwd": "${workspaceFolder}",
+            "env": {},
+            "envFile": "${workspaceFolder}/.env",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: LangGraph Version",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/langgraph_version/main.py",
             "console": "integratedTerminal",
             "python": "${workspaceFolder}/.venv/bin/python",
             "cwd": "${workspaceFolder}",
