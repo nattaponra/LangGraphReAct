@@ -85,8 +85,9 @@ def create_react_agent():
 class ReActAgent:
     """Wrapper class for the LangGraph ReAct agent."""
 
-    def __init__(self, enable_logging: bool = True):
+    def __init__(self, max_steps: int = 5, enable_logging: bool = True):
         self.graph = create_react_agent()
+        self.max_steps = max_steps
         self.enable_logging = enable_logging
 
     def run(self, user_input: str) -> str:
@@ -109,8 +110,12 @@ class ReActAgent:
             "messages": [HumanMessage(content=user_input)]
         }
 
-        # Run the graph
-        final_state = self.graph.invoke(initial_state)
+        # Run the graph with recursion limit
+        # Each step = assistant -> tools -> assistant, so multiply by 2
+        final_state = self.graph.invoke(
+            initial_state,
+            {"recursion_limit": self.max_steps * 2 + 1}
+        )
 
         # Extract the final response
         messages = final_state["messages"]
